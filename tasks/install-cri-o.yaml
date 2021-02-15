@@ -1,0 +1,19 @@
+- name: Configure modules for Cri-o
+  become: true
+  copy:
+    src: crio.conf
+    dest: /etc/modules-load.d/crio.conf
+
+- name: br_netfilter and overlay is well-configured for cri-o
+  state: present
+  community.general.modprobe:
+    name: "{{ item }}"
+  with_items:
+  - overlay
+  - br_netfilter
+
+- name: Configure cri-o for Kubernetes in sysctl
+  become: true
+  copy:
+    src: 99-kubernetes-cri.conf
+    dest: /etc/sysctl.d/99-kubernetes-cri.conf
