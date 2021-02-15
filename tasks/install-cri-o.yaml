@@ -7,10 +7,7 @@
 - name: br_netfilter and overlay is well-configured for cri-o
   state: present
   community.general.modprobe:
-    name: "{{ item }}"
-  with_items:
-  - overlay
-  - br_netfilter
+    name: overlay
 
 - name: Configure cri-o for Kubernetes in sysctl
   become: true
