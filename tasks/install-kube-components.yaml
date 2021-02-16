@@ -1,0 +1,25 @@
+---
+- name: apt-transport-https and curl are installed
+  become: yes
+  apt:
+    update_cache: yes
+    name: ['apt-transport-https','curl']
+
+- name: The GPG key is installed for download Kubernetes
+  become: yes
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+
+- name: Repository for Kubernetes is setup
+  become: yes
+  copy:
+    src: kubernetes.list
+    dest: /etc/apt/sources.list.d/kubernetes.list
+
+- name: Kubeadm, Kubelet and Kubectl
+  become: yes
+  apt:
+    update_cache: yes
+    name: ["kubeadm={{ K8S_VERSION }}","kubelet={{ K8S_VERSION }}", "kubectl={{ K8S_VERSION }}"]
+    state: present
