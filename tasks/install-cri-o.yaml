@@ -20,14 +20,14 @@
 - name: The repository for libcontainer for Ubuntu is installed
   become: true
   template:
-    src: crio-repository/devel-kubic-libcontainers-stable-$OS.list
+    src: crio-repository/ubuntu/devel-kubic-libcontainers-stable-$OS.list
     dest: /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
   when: ansible_distribution == "Ubuntu"
 
 - name: The repository for CRI-O for Ubuntu
   become: true
   template:
-    src: crio-repository/devel-kubic-libcontainers-stable-$OS-$VERSION.list
+    src: crio-repository/ubuntu/devel-kubic-libcontainers-stable-$OS-$VERSION.list
     dest: /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:1.20:1.20.0.list
   when: ansible_distribution == "Ubuntu"
 
