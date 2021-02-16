@@ -55,3 +55,9 @@
     state: present
   when: ansible_distribution == "Ubuntu" or ansible_distribution  == "Debian"
   notify: Enable CRI-O svc
+
+- name: Setup cgroup driver
+  become: true
+  copy:
+    src: 02-cgroup-manager.conf
+    dest: /etc/crio/crio.conf.d/02-cgroup-manager.conf
