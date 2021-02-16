@@ -40,6 +40,7 @@
   when: ansible_distribution == "Ubuntu"
 
 - name: GPG key is added for CRI-O 
+  become: true
   apt_key:
     url: "https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{ CRIO_VERSION }}/{{ CRIO_REPOSITORY_DISTRIBUTION_VERSION }}/Release.key"
     keyring: /etc/apt/trusted.gpg.d/libcontainers-cri-o.gpg
@@ -47,6 +48,7 @@
   when: ansible_distribution == "Ubuntu"
 
 - name: Install Cri-o on Ubuntu
+  become: true
   apt:
     update_cache: yes
     name: ['cri-o', 'cri-o-runc']
