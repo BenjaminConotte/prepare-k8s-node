@@ -5,6 +5,7 @@
   community.general.modprobe:
     name: br_netfilter
     state: present
+  notify: Reload sysctl
 
 - name: copy k8s.conf
   become: true

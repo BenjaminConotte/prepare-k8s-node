@@ -1,2 +1,6 @@
 ---
 # handlers file for prepare-k8s-node
+- name: Reload sysctl
+  become: true
+  ansible.posix.sysctl:
+    reload: yes
