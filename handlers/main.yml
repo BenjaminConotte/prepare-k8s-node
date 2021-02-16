@@ -4,3 +4,10 @@
   become: true
   ansible.posix.sysctl:
     reload: yes
+
+- name: Enable CRI-O svc
+  become: true
+  systemd:
+    name: crio
+    enabled: yes
+    daemon_reload: yes
