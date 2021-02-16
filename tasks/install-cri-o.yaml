@@ -1,16 +1,16 @@
-- name: Configure modules for Cri-o
+- name: Modules are well loaded for CRI-O
   become: true
   copy:
     src: crio.conf
     dest: /etc/modules-load.d/crio.conf
 
-- name: overlay is well-configured for cri-o
+- name: overlay is well-configured for CRI-O
   become: true
   community.general.modprobe:
     name: overlay
     state: present
 
-- name: Configure cri-o for Kubernetes in sysctl
+- name: CRI-O is well configured for Kubernetes in sysctl
   become: true
   copy:
     src: 99-kubernetes-cri.conf
@@ -24,7 +24,7 @@
     dest: /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
   when: ansible_distribution == "Ubuntu"
 
-- name: The repository for CRI-O for Ubuntu
+- name: The repository for CRI-O for Ubuntu is installed
   become: true
   template:
     src: crio-repository/ubuntu/devel-kubic-libcontainers-stable-OS-VERSION.list
@@ -47,7 +47,7 @@
     state: present
   when: ansible_distribution == "Ubuntu"
 
-- name: Install Cri-o on Ubuntu
+- name: CRI-O installed on Ubuntu
   become: true
   apt:
     update_cache: yes
@@ -56,7 +56,7 @@
   when: ansible_distribution == "Ubuntu" or ansible_distribution  == "Debian"
   notify: Enable CRI-O svc
 
-- name: Setup cgroup driver
+- name: cgroup driver is configured
   become: true
   copy:
     src: 02-cgroup-manager.conf

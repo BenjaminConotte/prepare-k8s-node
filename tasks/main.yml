@@ -7,7 +7,7 @@
     state: present
   notify: Reload sysctl
 
-- name: copy k8s.conf
+- name: Bridge configuration is setup for k8s
   become: true
   copy:
     src: k8s.conf
