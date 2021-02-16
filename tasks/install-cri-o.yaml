@@ -16,3 +16,39 @@
     src: 99-kubernetes-cri.conf
     dest: /etc/sysctl.d/99-kubernetes-cri.conf
   notify: Reload sysctl
+
+- name: The repository for libcontainer for Ubuntu is installed
+  become: true
+  template:
+    src: crio-repository/devel-kubic-libcontainers-stable-$OS.list
+    dest: /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+  when: ansible_distribution == "Ubuntu"
+
+- name: The repository for CRI-O for Ubuntu
+  become: true
+  template:
+    src: crio-repository/devel-kubic-libcontainers-stable-$OS-$VERSION.list
+    dest: /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:1.20:1.20.0.list
+  when: ansible_distribution == "Ubuntu"
+
+- name: GPG key is added for libcontainers
+  become: true
+  apt_key:
+    url: "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ CRIO_REPOSITORY_DISTRIBUTION_VERSION }}/Release.key"
+    keyring: /etc/apt/trusted.gpg.d/libcontainers.gpg
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: GPG key is added for CRI-O 
+  apt_key:
+    url: "https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{ CRIO_VERSION }}/{{ CRIO_REPOSITORY_DISTRIBUTION_VERSION }}/Release.key"
+    keyring: /etc/apt/trusted.gpg.d/libcontainers-cri-o.gpg
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install Cri-o on Ubuntu
+  apt:
+    update_cache: yes
+    name: ['cri-o', 'cri-o-runc']
+    state: present
+  when: ansible_distribution == "Ubuntu" or ansible_distribution  == "Debian"
