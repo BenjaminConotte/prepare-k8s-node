@@ -1,0 +1,18 @@
+---
+- name: Dependencies to build CONMON
+  become: yes
+  apt:
+    name: ['gcc', 'git', 'glib2-devel', 'glibc-devel', 'make', 'pkgconfig', 'runc']
+
+- name: CONMON repository pulled
+  become: yes
+  git:
+    repo: https://github.com/containers/conmon
+    dest: /srv/conmon
+    version: v2.0.26
+
+- name: CONMON built
+  become: yes
+  community.general.make:
+    chdir: /srv/conmon
+    target: install
