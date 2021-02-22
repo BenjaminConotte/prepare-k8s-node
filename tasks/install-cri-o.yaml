@@ -61,3 +61,9 @@
   copy:
     src: 02-cgroup-manager.conf
     dest: /etc/crio/crio.conf.d/02-cgroup-manager.conf
+
+- name: CRIO started
+  become: yes
+  systemd:
+    name: crio
+    state: started
