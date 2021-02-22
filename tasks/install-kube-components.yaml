@@ -23,3 +23,8 @@
     update_cache: yes
     name: ["kubeadm={{ K8S_VERSION }}","kubelet={{ K8S_VERSION }}", "kubectl={{ K8S_VERSION }}"]
     state: present
+  
+- name: Swap disabled
+  become: yes
+  shell: |
+    swapoff -a
