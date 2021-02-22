@@ -10,6 +10,7 @@
     repo: https://github.com/containers/conmon
     dest: /srv/conmon
     version: v2.0.26
+    force: yes
 
 - name: CONMON built
   become: yes
