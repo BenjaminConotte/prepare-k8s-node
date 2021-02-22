@@ -2,7 +2,7 @@
 - name: Dependencies to build CONMON
   become: yes
   apt:
-    name: ['gcc', 'git', 'glib2-devel', 'glibc-devel', 'make', 'pkgconfig', 'runc']
+    name: ['gcc', 'git', 'libc6-dev', 'libglib2.0-dev', 'make', 'pkgconfig', 'runc']
 
 - name: CONMON repository pulled
   become: yes
